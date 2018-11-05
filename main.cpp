@@ -173,8 +173,8 @@ public:
 	int Read() override {
 		int a = 0; //объявляем временную переменную
 		cin >> a; //читаем из потока целое число во временную переменную
-		if (a == 0000) {
-			exit(0);
+		if (a == 00) {
+			_LastError = 2;
 		}
 		return a; //возвращаем результат
 	}
@@ -229,8 +229,8 @@ public:
 		}
 		int a = 0;
 		_fdesc >> a;
-		if (a == 0000) {
-			exit(0);
+		if (a == 00) {
+			_LastError = 2;
 		}
 		return a;
 	}

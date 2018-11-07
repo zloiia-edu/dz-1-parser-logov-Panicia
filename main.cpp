@@ -339,95 +339,54 @@ public:
  */
 int main(int argc, char** argv)
 {
-	///Пример использования получившихся классов
+	InOut* inStream = new TermIO();
+	InOut* outStream = new TermIO();
+
+	cout << "Choose tipe of reading and writing" << endl;
+	cout << "Terminal to File - write <<termtofile>>" << endl;
+	cout << "Terminal to Terminal - write <<termtoterm>>" << endl;
+	cout << "File to File - write <<filetofile>>" << endl;
+	cout << "File to Terminal - write <<filetoterm>>" << endl;
+
 	bool Rock = 0;
 	while (Rock == 0) {
-		cout << "Choose tipe of reading and writing" << endl;
-		cout << "Terminal to File - write <<termtofile>>" << endl;
-		cout << "Terminal to Terminal - write <<termtoterm>>" << endl;
-		cout << "File to File - write <<filetofile>>" << endl;
-		cout << "File to Terminal - write <<filetoterm>>" << endl;
 		string voidOFuser = "";
 		cin >> voidOFuser;
 		if (voidOFuser == "termtofile") {
-
-			InOut* inStream = new TermIO(); //данные берем из терминала
-			InOut* outStream = new FileIO("Text.txt"); //кладем в файл 
-
-			inStream->Open(); //открываем потоки
-			outStream->Open();
-
-			IProcess* process = new CameraProcess(); //создаем обработчик
-
-			process->SetInput(inStream); //задаем потоки
-			process->SetOutput(outStream);
-
-			process->Work(); //работаем
-
-			delete process; //удаляем объект обработчика после работы
-
+			inStream = new TermIO();
+			outStream = new FileIO("Text.txt");
 			Rock = 1;
 		}
 		if (voidOFuser == "termtoterm") {
-			InOut* inStream = new TermIO();
-			InOut* outStream = new TermIO();
-
-			inStream->Open();
-			outStream->Open();
-
-			IProcess* process = new CameraProcess(); 
-
-			process->SetInput(inStream); 
-			process->SetOutput(outStream);
-
-			process->Work(); 
-
-			delete process;
-
+			inStream = new TermIO();
+			outStream = new TermIO();
 			Rock = 1;
-
 		}
 		if (voidOFuser == "filetofile") {
-			InOut* inStream = new FileIO("ErrorFile.txt");
-			InOut* outStream = new FileIO("Text.txt");
-
-			inStream->Open();
-			outStream->Open();
-
-			IProcess* process = new CameraProcess();
-
-			process->SetInput(inStream);
-			process->SetOutput(outStream);
-
-			process->Work();
-
-			delete process;
-
+			inStream = new FileIO("ErrorFile.txt");
+			outStream = new FileIO("Text.txt");
 			Rock = 1;
-
 		}
 		if (voidOFuser == "filetoterm") {
-			InOut* inStream = new FileIO("ErrorFile.txt");
-			InOut* outStream = new TermIO();
-
-			inStream->Open();
-			outStream->Open();
-
-			IProcess* process = new CameraProcess();
-
-			process->SetInput(inStream);
-			process->SetOutput(outStream);
-
-			process->Work();
-
-			delete process;
-
+			inStream = new FileIO("ErrorFile.txt");
+			outStream = new TermIO();
 			Rock = 1;
 		}
 		if (voidOFuser != "termtofile" && voidOFuser != "termtoterm" && voidOFuser != "filetofile" && voidOFuser != "filetoterm") {
 			cout << "Void does not exist" << endl;
 		}
 	}
+	inStream->Open();
+	outStream->Open();
+
+	IProcess* process = new CameraProcess();
+
+	process->SetInput(inStream);
+	process->SetOutput(outStream);
+
+	process->Work();
+
+	delete process;
 
 	return 0;
 }
